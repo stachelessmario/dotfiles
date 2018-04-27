@@ -1,0 +1,52 @@
+! Scrollbar
+URxvt.scrollStyle: rxvt
+URxvt.scrollBar: false
+
+! Cursor
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+*cursor: #ffffff
+
+URxvt.transparent: true
+URxvt.shading: 20
+URxvt.fading: 15
+
+! Colors
+*background: #131313
+*foreground: #cecece
+
+! Black
+*color0: #131313
+*color8: #7c7c7c
+
+! Red
+*color1: #9c1c29
+*color9: #c42434
+
+! Green
+*color2: #46a324
+*color10: #5bd32e
+
+! Yellow:
+*color3: #dbaa21
+*color11: #e7b324
+
+! Blue
+*color4: #4676cb
+*color12: #4e88eb
+
+! Magenta
+*color5: #6666ea
+*color13: #7d7dea
+
+! Cyan
+*color6: #00bba9
+*color14: #00d9c4
+
+! White
+*color7: #cecece
+*color15: #e9f5e7
+
+! Stuff
+URxvt*font: xft:Hack:size=10
+Xft.dpi: 144

@@ -1,0 +1,199 @@
+set $mod Mod1
+
+# Set font
+font pango:Hack 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Program shortcuts
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+w exec waterfox
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+r exec i3-sensible-terminal -e ranger
+bindsym $mod+t exec thunderbird
+bindsym $mod+e exec emacs
+
+# kill focused window
+bindsym $mod+q kill
+
+# Startup
+exec_always --no-startup-id /home/thortl/.config/polybar/launch.sh
+exec_always --no-startup-id xsetroot -solid "#474747"
+#exec_always --no-startup-id feh --bg-tile /home/thortl/Pictures/papes/topo.png
+exec_always --no-startup-id udiskie # automount
+exec_always --no-startup-id xcape -e 'Control_L=Escape'
+exec_always /usr/bin/xmodmap /home/thortl/.Xmodmap # custom key binding
+exec_always --no-startup-id xbacklight -set 30 # backlight
+exec_always --no-startup-id xset r rate 300 35
+exec_always --no-startup-id urxvt -name dropdown
+#exec_always --no-startup-id urxvt -name music -e cmus
+exec_always --no-startup-id pkill redshift
+exec_always --no-startup-id redshift-gtk
+exec_always --no-startup-id betterlockscreen -u ~/Pictures/papes/lock
+exec_always --no-startup-id xautolock -time 15 -locker betterlockscreen -s -detectsleep
+
+# toggle monitor settings
+bindsym $mod+m exec xrandr --output HDMI2 --mode 1920x1080 --scale 1.5x1.5 --panning 2880x1620 --output eDP1 --off && exec caffeine -a
+bindsym $mod+Shift+m exec xrandr --output eDP1 --mode 2560x1600 --output HDMI2 --off && exec caffeine kill 
+
+# lock
+bindsym $mod+p exec betterlockscreen --lock 
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+w layout tabbed
+bindsym $mod+Shift+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+c focus child
+
+# scratchpad
+for_window [instance="dropdown"] border pixel 4
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 1600 1000
+for_window [instance="dropdown"] move scratchpad
+bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+
+#for_window [instance="music"] border pixel 4
+#for_window [instance="music"] floating enable
+#for_window [instance="music"] resize set 1600 1000
+#for_window [instance="music"] move scratchpad
+#bindsym $mod+i [instance="music"] scratchpad show; [instance="music"] move position center
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+
+# Resize
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+s mode "resize"
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 2 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 2 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec cmus-remote --pause
+bindsym XF86AudioNext exec cmus-remote --next
+bindsym XF86AudioPrev exec cmus-remote --prev
+
+# Gaps
+#for_window [class="^.*"] border pixel 2
+new_window pixel 2
+#smart_gaps on
+gaps inner 5
+#gaps outer 10
+#smart_borders on
+
+# Color scheme (~.Xdefaults)
+set_from_resource $black00 color0
+set_from_resource $black01 color8
+set_from_resource $red00  color1
+set_from_resource $red01 color9
+set_from_resource $green00 color2
+set_from_resource $green01 color10
+set_from_resource $yellow00 color3
+set_from_resource $yellow01 color11
+set_from_resource $blue00 color4
+set_from_resource $blue01 color12
+set_from_resource $magenta00 color5
+set_from_resource $magenta01 color13
+set_from_resource $cyan00 color6
+set_from_resource $cyan01 color14
+set_from_resource $white00 color7
+set_from_resource $white01 color15
+
+# Property Name         Border   BG        Text     Indicator Child Border
+client.focused          $yellow00 $yellow00 $black00 $yellow00 $yellow00
+client.focused_inactive $black01 $white00  $black00 $white01  $black01
+client.unfocused        $black01 $black01  $black00 $white01  $black01
+client.urgent           $red00   $red00    $white00 $red00    $red00
+client.placeholder      $white00 $white00  $black00 $white00  $white00
+client.background	$white01
+
+# Power menu
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (Shift+r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id betterlockscreen --lock, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym Shift+r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym control+mod1+Delete mode "$mode_system"

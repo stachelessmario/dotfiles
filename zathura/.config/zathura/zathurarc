@@ -1,0 +1,41 @@
+# Set colorscheme
+
+set default-bg                  "#131313"
+set default-fg                  "#cecece"
+
+set statusbar-fg                "#cecece"
+set statusbar-bg                "#131313"
+
+set inputbar-bg                 "#131313"
+set inputbar-fg                 "#cecece"
+
+set notification-bg             "#131313"
+set notification-fg             "#cecece"
+
+set notification-error-bg       "#9c1c29"
+set notification-error-fg       "#cecece"
+
+set notification-warning-bg     "#dbaa21"
+set notification-warning-fg     "#131313"
+
+set highlight-color             "#dbaa21"
+set highlight-active-color      "#e7b324"
+
+set completion-bg               "#131313"
+set completion-fg               "#cecece"
+
+set completion-highlight-fg     "#cecece"
+set completion-highlight-bg     "#131313"
+
+set recolor-lightcolor          "#131313"
+set recolor-darkcolor           "#cecece"
+
+set recolor                     "false"
+set recolor-keephue		"false"
+
+# Set keybindings
+
+map s toggle_statusbar
+map i recolor
+map Right navigate next
+map Left navigate previous
