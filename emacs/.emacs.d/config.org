@@ -1,0 +1,131 @@
+* Evil
+** setup
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init
+    (setq evil-want-integration nil)
+    :config
+    (define-key evil-normal-state-map " " 'evil-window-map)
+    (evil-mode 1))
+#+END_SRC
+** evil-collection
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :ensure t
+    :config
+    (evil-collection-init))
+#+END_SRC
+* Org
+** src block
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+** org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+#+END_SRC
+* Ido
+** setup
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+#+END_SRC
+** vertical
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :init
+    (ido-vertical-mode 1))
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+#+END_SRC
+** buffer
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x b") 'ido-switch-buffer)
+#+END_SRC
+* smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init
+    (smex-initialize)
+    :bind
+    ("M-x" . smex))
+#+END_SRC
+* Buffers
+** enable ibuffer
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+** kill current buffer
+#+BEGIN_SRC emacs-lisp
+  (defun kill-curr-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+  (global-set-key (kbd "C-x k") 'kill-curr-buffer)
+#+END_SRC
+* Which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (which-key-mode))
+#+END_SRC
+* Rainbow-delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+* Sudo-edit
+#+BEGIN_SRC emacs-lisp
+  (use-package sudo-edit
+    :ensure t)
+#+END_SRC
+* Olivetti
+#+BEGIN_SRC emacs-lisp
+  (use-package olivetti
+    :ensure t)
+  (setq olivetti-body-width 60)
+#+END_SRC
+* Settings
+** GUI 
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (setq inhibit-startup-message t)
+  (setq inhibit-splash-screen t)
+#+END_SRC
+** no backups
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-files nil)
+#+END_SRC
+** garbage collection
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-treshold 20000000)
+#+END_SRC
+** confirm before closing emacs
+#+BEGIN_SRC emacs-lisp
+  ;; (setq confirm-kill-emacs 'y-or-n-p)
+#+END_SRC
+** always follow symlinks
+#+BEGIN_SRC emacs-lisp
+  (setq vc-follow-symlinks t)
+#+END_SRC
+** ask y/n
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** columns and rows
+#+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+END_SRC

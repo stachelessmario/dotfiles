@@ -33,6 +33,7 @@ SAVEHIST=1000
 
 alias neofedch="neofetch --w3m /home/thortl/Pictures/mems/gondola/args.png"
 alias v='vim'
+alias e='emacs --no-window-system'
 alias p='pacaur'
 alias ls='ls --color=auto'
 
