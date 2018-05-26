@@ -1,3 +1,7 @@
+* Emacs configuration
+This file contains the majority of my Emacs configuration. It is written in Org mode for easy readability and management.
+
+For more configs check out [[https://github.com/caisah/emacs.dz][this collection]].
 * Evil
 ** setup
 #+BEGIN_SRC emacs-lisp
@@ -16,6 +20,13 @@
     :ensure t
     :config
     (evil-collection-init))
+#+END_SRC
+** numbers
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-numbers
+    :ensure t)
+  (global-set-key (kbd "C-=") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C--") 'evil-numbers/dec-at-pt)
 #+END_SRC
 * Org
 ** src block
@@ -77,6 +88,28 @@
     :init
     (which-key-mode))
 #+END_SRC
+* Python
+;; ** Elpy
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :pin melpa-stable
+    :defer 2
+    :config
+    (progn
+      (elpy-enable)
+      (setq elpy-rpc-backend "jedi")))
+#+END_SRC
+* Kill ring
+#+BEGIN_SRC emacs-lisp
+  (use-package browse-kill-ring
+    :ensure t
+    :config
+    (setq browse-kill-ring-highlight-inserted-item t))
+  (global-set-key (kbd "M-y") 'browse-kill-ring)
+  (define-key browse-kill-ring-mode-map (kbd "j") 'browse-kill-ring-forward)
+  (define-key browse-kill-ring-mode-map (kbd "k") 'browse-kill-ring-previous)
+#+END_SRC 
 * Rainbow-delimiters
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
@@ -95,6 +128,17 @@
     :ensure t)
   (setq olivetti-body-width 60)
 #+END_SRC
+* Theme
+** DOOM
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t)
+    (load-theme 'doom-molokai t)
+    (doom-themes-org-config))
+#+END_SRC
 * Settings
 ** GUI 
 #+BEGIN_SRC emacs-lisp
@@ -103,6 +147,10 @@
   (scroll-bar-mode -1)
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
+#+END_SRC
+** scratch message
+#+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message nil)
 #+END_SRC
 ** no backups
 #+BEGIN_SRC emacs-lisp
@@ -128,4 +176,12 @@
 #+BEGIN_SRC emacs-lisp
   (line-number-mode 1)
   (column-number-mode 1)
+#+END_SRC
+** diminish minor modes
+#+BEGIN_SRC emacs-lisp
+  (use-package abbrev
+    :diminish abbrev-mode
+    :config
+    (if (file-exists-p abbrev-file-name)
+        (quietly-read-abbrev-file)))
 #+END_SRC
