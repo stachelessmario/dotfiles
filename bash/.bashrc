@@ -1,16 +1,21 @@
 [[ $- != *i* ]] && return
 
 set -o vi
-shopt -s autocd # omit cd when entering a path
+shopt -s autocd
 
-PS1="\e[32m\u@\h:\e[97m\w\e[32m\\$\e[m "
+PS1="\[\e[32m\]\u@\h\[\e[m\] \[\e[34m\]\w\[\e[m\] "
 
 bind 'set show-all-if-ambiguous on'
+bind 'set completion-ignore-case on'
+bind 'set colored-completion-prefix on'
+bind 'set colored-stats on'
 bind 'TAB: menu-complete'
-#bind '"\ek": history-search-backward'
-#bind '"\ej": history-search-forward'
+
+export ALTERNATE EDITOR=""
+export EDITOR="emacsclient -c -a emacs"
+export VISUAL="emacsclient -c -a emacs"
 
 alias ls='ls --color=auto'
 alias v='vim'
-alias e='emacs --no-window-system'
+alias e='emacsclient -create-frame --alternate-editor=""'
 alias p='pacaur'

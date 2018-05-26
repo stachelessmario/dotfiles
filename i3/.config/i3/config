@@ -12,7 +12,8 @@ bindsym $mod+w exec waterfox
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+r exec i3-sensible-terminal -e ranger
 bindsym $mod+t exec thunderbird
-bindsym $mod+e exec emacs
+bindsym $mod+e exec emacsclient -c -a emacs
+#bindsym $mod+e exec emacs
 
 # kill focused window
 bindsym $mod+q kill
@@ -30,15 +31,15 @@ exec_always --no-startup-id urxvt -name dropdown
 #exec_always --no-startup-id urxvt -name music -e cmus
 exec_always --no-startup-id pkill redshift
 exec_always --no-startup-id redshift-gtk
-exec_always --no-startup-id betterlockscreen -u ~/Pictures/papes/lock
-exec_always --no-startup-id xautolock -time 15 -locker betterlockscreen -s -detectsleep
+#exec_always --no-startup-id betterlockscreen -u ~/Pictures/papes/lock
+exec_always --no-startup-id xautolock -time 15 -locker slock
 
 # toggle monitor settings
 bindsym $mod+m exec xrandr --output HDMI2 --mode 1920x1080 --scale 1.5x1.5 --panning 2880x1620 --output eDP1 --off && exec caffeine -a
 bindsym $mod+Shift+m exec xrandr --output eDP1 --mode 2560x1600 --output HDMI2 --off && exec caffeine kill 
 
 # lock
-bindsym $mod+p exec betterlockscreen --lock 
+bindsym $mod+p exec slock
 
 # change focus
 bindsym $mod+h focus left
