@@ -1,4 +1,4 @@
-# Thortl's Linux dotfiles
+# Thortl's GNU/Linux dotfiles
 
 Directory containing all the dotfiles used on my current Arch Linux system.
 
