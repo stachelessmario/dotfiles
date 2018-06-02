@@ -1,0 +1,16 @@
+$include /etc/inputrc
+
+set echo-control-characters off
+
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string I:
+set vi-cmd-mode-string N:
+
+set menu-complete-display-prefix on
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set colored-completion-prefix on
+set colored-stats on
+TAB: menu-complete
+"/e[Z": menu-complete-backward
