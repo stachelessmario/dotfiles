@@ -9,7 +9,7 @@ floating_modifier $mod
 # Program shortcuts
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+w exec waterfox
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -b -nb '#131313' -nf '#e9f5e7' -sb '#dbaa21' -sf '#e9f5e7'"
 bindsym $mod+r exec i3-sensible-terminal -e ranger
 bindsym $mod+t exec thunderbird
 bindsym $mod+e exec emacsclient -c -a emacs
@@ -19,7 +19,7 @@ bindsym $mod+e exec emacsclient -c -a emacs
 bindsym $mod+q kill
 
 # Startup
-exec_always --no-startup-id /home/thortl/.config/polybar/launch.sh
+#exec_always --no-startup-id /home/thortl/.config/polybar/launch.sh
 exec_always --no-startup-id xsetroot -solid "#474747"
 #exec_always --no-startup-id feh --bg-tile /home/thortl/Pictures/papes/topo.png
 exec_always --no-startup-id udiskie # automount
@@ -39,7 +39,7 @@ bindsym $mod+m exec xrandr --output HDMI2 --mode 1920x1080 --scale 1.5x1.5 --pan
 bindsym $mod+Shift+m exec xrandr --output eDP1 --mode 2560x1600 --output HDMI2 --off && exec caffeine kill 
 
 # lock
-bindsym $mod+p exec slock
+bindsym $mod+p exec i3-sensible-terminal -e slock
 
 # change focus
 bindsym $mod+h focus left
@@ -185,6 +185,22 @@ client.unfocused        $black01 $black01  $black00 $white01  $black01
 client.urgent           $red00   $red00    $white00 $red00    $red00
 client.placeholder      $white00 $white00  $black00 $white00  $white00
 client.background	$white01
+
+bar {
+    status_command i3blocks
+    font pango:FontAwesome 10
+    separator_symbol "·"
+
+    colors {
+        background $black00
+   	separator  $black01
+   	#			border		bg.		text
+    	focused_workspace	$yellow00	$yellow00	$white01
+    	active_workspace	$black01	$black01	$white00
+    	inactive_workspace	$black01	$black01	$white01
+    	urgent_workspace	$red01		$red00		$white01
+    }
+}
 
 # Power menu
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (Shift+r) reboot, (Shift+s) shutdown
