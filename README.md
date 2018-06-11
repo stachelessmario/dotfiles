@@ -2,6 +2,8 @@
 
 Directory containing all the dotfiles used on my current Arch Linux system; feel free to help yourself.
 
+![scrot](pictures/scrot.png)
+
 ## How to
 
 - Make sure GNU Stow is installed
