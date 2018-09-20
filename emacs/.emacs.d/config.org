@@ -2,36 +2,19 @@
 This file contains the majority of my Emacs configuration. It is written in Org mode for easy readability and management.
 
 For more configs check out [[https://github.com/caisah/emacs.dz][this collection]].
-* Evil
-** setup
-#+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :init
-    (setq evil-want-integration nil)
-    :config
-    (define-key evil-normal-state-map " " 'evil-window-map)
-    (evil-mode 1))
-#+END_SRC
-** evil-collection
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-collection
-    :after evil
-    :ensure t
-    :config
-    (evil-collection-init))
-#+END_SRC
-** numbers
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-numbers
-    :ensure t)
-  (global-set-key (kbd "C-=") 'evil-numbers/inc-at-pt)
-  (global-set-key (kbd "C--") 'evil-numbers/dec-at-pt)
-#+END_SRC
 * Org
 ** src block
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
+#+END_SRC
+** org-ref
+#+BEGIN_SRC emacs-lisp
+  (use-package org-ref
+    :ensure t)
+  (setq reftex-default-bibliography '("~/Documents/OneDrive/References/ref.bib"))
+  (setq org-ref-bibliography-notes "~/Documents/OneDrive/References/notes.org"
+	org-ref-default-bibliography '("~/Documents/OneDrive/References/ref.bib")
+	org-ref-pdf-directory "~/Documents/OneDrive/Books/PDF/")
 #+END_SRC
 ** org-bullets
 #+BEGIN_SRC emacs-lisp
@@ -40,34 +23,24 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+END_SRC
-* Ido
-** setup
+* Helm
+** Setup
 #+BEGIN_SRC emacs-lisp
-  (setq ido-enable-flex-matching nil)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-#+END_SRC
-** vertical
-#+BEGIN_SRC emacs-lisp
-  (use-package ido-vertical-mode
+  (use-package helm
     :ensure t
-    :init
-    (ido-vertical-mode 1))
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+    :bind (("M-x" . helm-M-x)
+	   ("C-x C-f" . helm-find-files)
+	   ("M-y" . helm-show-kill-ring)))
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (setq helm-buffers-fuzzy-matching t
+	helm-recentf-fuzzy-match    t)
 #+END_SRC
-** buffer
+** helm-bibtex
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-x b") 'ido-switch-buffer)
-#+END_SRC
-* smex
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :ensure t
-    :init
-    (smex-initialize)
-    :bind
-    ("M-x" . smex))
+  (use-package helm-bibtex)
+  (setq bibtex-completion-bibliography "~/Documents/OneDrive/Templates/ref.bib"
+	bibtex-completion-library-path "~/Documents/OneDrive/Books/PDF/"
+	bibtex-completion-notes-path "~/Documents/OneDrive/Templates/helm-bibtex-notes")
 #+END_SRC
 * Buffers
 ** enable ibuffer
@@ -101,16 +74,6 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
       (setq elpy-rpc-python-command "python2")
       (setq elpy-rpc-backend "jedi")))
 #+END_SRC
-* Kill ring
-#+BEGIN_SRC emacs-lisp
-  (use-package browse-kill-ring
-    :ensure t
-    :config
-    (setq browse-kill-ring-highlight-inserted-item t))
-  (global-set-key (kbd "M-y") 'browse-kill-ring)
-  (define-key browse-kill-ring-mode-map (kbd "j") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "k") 'browse-kill-ring-previous)
-#+END_SRC 
 * Rainbow-delimiters
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
@@ -148,6 +111,7 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
   (scroll-bar-mode -1)
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
+  (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 #+END_SRC
 ** scratch message
 #+BEGIN_SRC emacs-lisp

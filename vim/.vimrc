@@ -1,6 +1,6 @@
 " Plugins
  call plug#begin('~/.vim/plugged')
-	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+"	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'terryma/vim-multiple-cursors'
@@ -19,7 +19,7 @@
 	syntax on
 	"let g:airline_powerline_fonts = 1
 	let g:airline_theme = 'powerlineish'
-	let g:livepreview_previewer = 'zathura'
+"	let g:livepreview_previewer = 'zathura'
 
 " Navigating guides
 	inoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
