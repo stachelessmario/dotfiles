@@ -11,3 +11,5 @@ export VISUAL="emacsclient -c -a emacs"
 alias ls='ls --color=auto'
 alias v='vim'
 alias e='emacsclient -create-frame --alternate-editor=""'
+alias py='python3'
+alias pip='pip3'

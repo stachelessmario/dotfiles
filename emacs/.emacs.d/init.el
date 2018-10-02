@@ -31,6 +31,9 @@
  '(custom-safe-themes
    (quote
     ("0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" default)))
+ '(org-agenda-files
+   (quote
+    ("~/Documents/OneDrive/Year4/EX4016/EX4016-notes.org" "~/Documents/OneDrive/Tau/2019/Tau19-design.org" "~/Documents/OneDrive/Thesis/thesis.org")))
  '(package-selected-packages
    (quote
     (elpy browse-kill-ring powerline doom-themes evil-numbers org-bullets olivetti sudo-edit rainbow-delimiters smex which-key evil-collection evil use-package))))

@@ -3,6 +3,13 @@ This file contains the majority of my Emacs configuration. It is written in Org 
 
 For more configs check out [[https://github.com/caisah/emacs.dz][this collection]].
 * Org
+** bindings
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-cb" 'org-switchb)
+#+END_SRC
 ** src block
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
