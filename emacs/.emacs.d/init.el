@@ -10,9 +10,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(unless (package-installed-p 'doom-themes)
+(unless (package-installed-p 'spacemacs-theme)
   (package-refresh-contents)
-  (package-install 'doom-themes))
+  (package-install 'spacemacs-theme))
 ;;;;
 
 (if (daemonp)
@@ -27,13 +27,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (doom-molokai)))
+ '(custom-enabled-themes (quote (spacemacs-light)))
  '(custom-safe-themes
    (quote
-    ("0cd56f8cd78d12fc6ead32915e1c4963ba2039890700458c13e12038ec40f6f5" "3a3de615f80a0e8706208f0a71bbcc7cc3816988f971b6d237223b6731f91605" default)))
- '(org-agenda-files
-   (quote
-    ("~/Documents/OneDrive/Year4/EX4016/EX4016-notes.org" "~/Documents/OneDrive/Tau/2019/Tau19-design.org" "~/Documents/OneDrive/Thesis/thesis.org")))
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(package-selected-packages
    (quote
     (elpy browse-kill-ring powerline doom-themes evil-numbers org-bullets olivetti sudo-edit rainbow-delimiters smex which-key evil-collection evil use-package))))

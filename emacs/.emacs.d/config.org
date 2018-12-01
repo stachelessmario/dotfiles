@@ -30,12 +30,11 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
 	org-ref-default-bibliography '("~/Documents/OneDrive/References/ref.bib")
 	org-ref-pdf-directory "~/Documents/OneDrive/Books/PDF/")
 #+END_SRC
-** org-bullets
+** org-pdfview
 #+BEGIN_SRC emacs-lisp
-  (use-package org-bullets
-    :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+  (use-package org-pdfview
+    :ensure t)
+  (require 'org-pdfview)
 #+END_SRC
 * Helm
 ** Setup
@@ -56,7 +55,7 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
 	bibtex-completion-library-path "~/Documents/OneDrive/Books/PDF/"
 	bibtex-completion-notes-path "~/Documents/OneDrive/Templates/helm-bibtex-notes")
 #+END_SRC
-* Buffers
+* buffers
 ** enable ibuffer
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -68,56 +67,59 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
     (kill-buffer (current-buffer)))
   (global-set-key (kbd "C-x k") 'kill-curr-buffer)
 #+END_SRC
-* Which-key
+* which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
     :init
     (which-key-mode))
 #+END_SRC
-* Python
-;; ** Elpy
+* pdf-tools
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
+  (use-package pdf-tools
     :ensure t
-    :pin melpa-stable
-    :defer 2
     :config
-    (progn
-      (elpy-enable)
-      (setq elpy-rpc-python-command "python2")
-      (setq elpy-rpc-backend "jedi")))
+    (pdf-tools-install))
+
 #+END_SRC
-* Rainbow-delimiters
+* rainbow-delimiters
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
-* Sudo-edit
+* sudo-edit
 #+BEGIN_SRC emacs-lisp
   (use-package sudo-edit
     :ensure t)
 #+END_SRC
-* Olivetti
+* theme
+** spacemacs-theme
 #+BEGIN_SRC emacs-lisp
-  (use-package olivetti
-    :ensure t)
-  (setq olivetti-body-width 60)
-#+END_SRC
-* Theme
-** DOOM
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
+  (use-package spacemacs-theme
     :ensure t
-    :config
-    (setq doom-themes-enable-bold t
-          doom-themes-enable-italic t)
-    (load-theme 'doom-molokai t)
-    (doom-themes-org-config))
+    :no-require t
+    :init
+    (load-theme 'spacemacs-dark t))
 #+END_SRC
-* Settings
+** toggle dark/light
+#+BEGIN_SRC emacs-lisp
+  (defcustom default-light-color-theme 'spacemacs-light
+    "default light theme")
+
+  (defcustom default-dark-color-theme 'spacemacs-dark
+    "default dark theme")
+
+  (defun toggle-dark-light-theme ()
+    (interactive)
+
+    (let ((is-light (find default-light-color-theme custom-enabled-themes)))
+      (dolist (theme custom-enabled-themes)
+	(disable-theme theme))
+      (load-theme (if is-light default-dark-color-theme default-light-color-theme))))
+#+END_SRC
+* settings
 ** GUI 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
@@ -126,6 +128,7 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+  (set-frame-font "Hack-10" nil t)
 #+END_SRC
 ** scratch message
 #+BEGIN_SRC emacs-lisp
@@ -134,6 +137,7 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
 ** no backups
 #+BEGIN_SRC emacs-lisp
   (setq make-backup-files nil)
+  (setq auto-save-default nil)
 #+END_SRC
 ** garbage collection
 #+BEGIN_SRC emacs-lisp
