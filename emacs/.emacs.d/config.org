@@ -21,20 +21,53 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
       '((python . t)
 	(matlab . t)))
 #+END_SRC
-** org-ref
-#+BEGIN_SRC emacs-lisp
-  (use-package org-ref
-    :ensure t)
-  (setq reftex-default-bibliography '("~/Documents/OneDrive/References/ref.bib"))
-  (setq org-ref-bibliography-notes "~/Documents/OneDrive/References/notes.org"
-	org-ref-default-bibliography '("~/Documents/OneDrive/References/ref.bib")
-	org-ref-pdf-directory "~/Documents/OneDrive/Books/PDF/")
-#+END_SRC
 ** org-pdfview
 #+BEGIN_SRC emacs-lisp
   (use-package org-pdfview
     :ensure t)
   (require 'org-pdfview)
+#+END_SRC
+* pdf-tools
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-tools-install))
+#+END_SRC
+* LaTeX
+** Auctex
+#+BEGIN_SRC emacs-lisp
+  (use-package tex-site
+    :ensure auctex
+    :config
+    (add-hook 'LaTeX-mode-hook
+		(lambda ()
+		(rainbow-delimiters-mode)
+		(turn-on-reftex)
+		(setq reftex-plug-into-AUCTeX t)
+		(reftex-isearch-minor-mode)
+		(setq TeX-PDF-mode t)
+		(setq TeX-source-correlate-method 'synctex)
+		(setq TeX-source-correlate-start-server t)))
+
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
+	     #'TeX-revert-document-buffer)
+
+  ;; to use pdfview with auctex
+  (add-hook 'LaTeX-mode-hook 'pdf-tools-install)
+  (setq TeX-view-program-selection '((output-pdf "pdf-tools"))
+	 TeX-source-correlate-start-server t)
+  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+
+#+END_SRC
+** reftex
+#+BEGIN_SRC emacs-lisp
+  (use-package reftex
+    :ensure t
+    :defer t
+    :config
+    (setq reftex-cite-prompt-optional-args t))
 #+END_SRC
 * Helm
 ** Setup
@@ -48,12 +81,20 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
   (setq helm-buffers-fuzzy-matching t
 	helm-recentf-fuzzy-match    t)
 #+END_SRC
-** helm-bibtex
+* Ace-window
 #+BEGIN_SRC emacs-lisp
-  (use-package helm-bibtex)
-  (setq bibtex-completion-bibliography "~/Documents/OneDrive/Templates/ref.bib"
-	bibtex-completion-library-path "~/Documents/OneDrive/Books/PDF/"
-	bibtex-completion-notes-path "~/Documents/OneDrive/Templates/helm-bibtex-notes")
+  (use-package ace-window
+    :bind* ("M-o" . ace-window)
+    :ensure t
+    :config
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+	  aw-dispatch-always t))
+#+END_SRC
+* Avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind ("M-s" . avy-goto-char))
 #+END_SRC
 * buffers
 ** enable ibuffer
@@ -67,20 +108,12 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
     (kill-buffer (current-buffer)))
   (global-set-key (kbd "C-x k") 'kill-curr-buffer)
 #+END_SRC
-* which-key
+* Which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
     :init
     (which-key-mode))
-#+END_SRC
-* pdf-tools
-#+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :ensure t
-    :config
-    (pdf-tools-install))
-
 #+END_SRC
 * rainbow-delimiters
 #+BEGIN_SRC emacs-lisp
@@ -103,32 +136,28 @@ For more configs check out [[https://github.com/caisah/emacs.dz][this collection
     :init
     (load-theme 'spacemacs-dark t))
 #+END_SRC
-** toggle dark/light
+* CygWin
 #+BEGIN_SRC emacs-lisp
-  (defcustom default-light-color-theme 'spacemacs-light
-    "default light theme")
-
-  (defcustom default-dark-color-theme 'spacemacs-dark
-    "default dark theme")
-
-  (defun toggle-dark-light-theme ()
-    (interactive)
-
-    (let ((is-light (find default-light-color-theme custom-enabled-themes)))
-      (dolist (theme custom-enabled-themes)
-	(disable-theme theme))
-      (load-theme (if is-light default-dark-color-theme default-light-color-theme))))
+  (setenv "PATH"
+    (concat
+     "C:/cygwin/usr/local/bin" ";"
+     "C:/cygwin/usr/bin" ";"
+     "C:/cygwin/bin" ";"
+     "C:/cygwin" ";"
+     (getenv "PATH")
+    )
+  )
 #+END_SRC
 * settings
 ** GUI 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
-  (menu-bar-mode -1)
+  ;; (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-  (set-frame-font "Hack-10" nil t)
+  (set-frame-font "Hack-12" nil t)
 #+END_SRC
 ** scratch message
 #+BEGIN_SRC emacs-lisp
