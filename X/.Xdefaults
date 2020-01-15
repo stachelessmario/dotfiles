@@ -32,8 +32,8 @@ URxvt.fading: 15
 *color11: #e7b324
 
 ! Blue
-*color4: #4676cb
-*color12: #4e88eb
+*color4: #5e86cc
+*color12: #548ae8
 
 ! Magenta
 *color5: #6666ea
